@@ -1,7 +1,18 @@
 import socket
 
 def view(request):
-    return request
+    header, body = request.split("\n\n", 1)
+    headers = header.splitlines()
+    method, path, version = headers[0].split()
+
+    response_body = ""
+    if path == '/test':
+        response_header = "HTTP/1.1 200 OK\nContent-Type:text/plain; charset=utf-8\n\n" 
+        response_body = "Hello"
+    else:
+        response_header = "HTTP/1.1 404 Not Found\n\n" 
+        response_body = f"127.0.0.1/{path}が見つかりません"
+    return response_header + response_body 
 
 def main():
     # AF_INET = ipv4, SOCK_STREAM = tcp
