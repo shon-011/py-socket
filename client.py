@@ -10,7 +10,7 @@ def main(request):
     print(res.decode('utf-8'))
     
 if __name__ == '__main__': 
-    header = "GET /test HTTP/1.1\nHost:127.0.0.1\nConnection:close\n\n"
+    header = "GET /test HTTP/1.1\nHost:127.0.0.1\nConnection:close\r\n\r\n"
     body = ""
     request = header + body
     main(request)
