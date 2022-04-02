@@ -1,18 +1,39 @@
+from ensurepip import version
 import socket
+from urllib import response
 
-def view(request):
-    header, body = request.split("\n\n", 1)
-    headers = header.splitlines()
-    method, path, version = headers[0].split()
+def view(raw_request):
+    try:
+        request = get_request(raw_request)
+        if request["path"] == '/test':
+            body = "Welcome to my server!"
+            response = create_response(200, body)
+        else:
+            body = "指定したページは存在しません。"
+            response = create_response(404, body)
+    except Exception as e:
+        body = f"サーバーに異常が起きています。\n{e}"
+        response = create_response(500, body)
+    return response
 
-    response_body = ""
-    if path == '/test':
-        response_header = "HTTP/1.1 200 OK\nContent-Type:text/plain; charset=utf-8\n\n" 
-        response_body = "Hello"
-    else:
-        response_header = "HTTP/1.1 404 Not Found\n\n" 
-        response_body = f"127.0.0.1/{path}が見つかりません"
-    return response_header + response_body 
+def get_request(raw_request):
+    header, body = raw_request.split("\r\n\r\n", 1)
+    header = header.splitlines()
+    method, path, version = header[0].split()
+    request = {
+        "method": method,
+        "path": path,
+        "version": version,
+        "body": body,
+    }
+    return request
+
+def create_response(status_code, body):
+    status = {200: "200 OK", 404: "404 Not Found", 500: "500 Internal Server Error"}
+    header = "Content-Type:text/plain; charset=utf-8"
+    status_line = "HTTP/1.1 " + status[status_code]
+    response = f"{status_line}\n{header}\n\n{body}" 
+    return response
 
 def main():
     # AF_INET = ipv4, SOCK_STREAM = tcp
