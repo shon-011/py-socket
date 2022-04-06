@@ -60,7 +60,7 @@ HTTPメッセージを実装しGETを行います
 
 
 ### 索引
-Real World HTTP: https://www.oreilly.co.jp/books/9784873119038/
-https://dev.classmethod.jp/articles/python3socketserver/
-https://logmi.jp/tech/articles/314757
-https://qiita.com/megadreams14/items/32a3eed4661e55419e1c
+- Real World HTTP: https://www.oreilly.co.jp/books/9784873119038/
+- https://dev.classmethod.jp/articles/python3socketserver/
+- https://logmi.jp/tech/articles/314757
+- https://qiita.com/megadreams14/items/32a3eed4661e55419e1c
